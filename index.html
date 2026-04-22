@@ -445,41 +445,6 @@
       <div class="info-section">
         <!-- Phone (tel from PDF: +852 2851 8029 / 8062) 
              Note: scanned shows both Tel and Fax, we list main office tel + direct -->
-        <div class="contact-row">
-          <div class="row-label">
-            <span data-lang="en">PHONE</span>
-            <span data-lang="zh">電話</span>
-          </div>
-          <div class="row-value" id="phoneValue">+852 2851 8029</div>
-          <button class="copy-btn" data-copy-id="phoneValue">
-            <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
-          </button>
-        </div>
-
-        <!-- direct line / executive contact (based on PDF page2: 執行董事 + 電話 +852 2851 8062) -->
-        <div class="contact-row">
-          <div class="row-label">
-            <span data-lang="en">DIRECT LINE</span>
-            <span data-lang="zh">手機</span>
-          </div>
-          <div class="row-value" id="directLine">+852 2851 8062</div>
-          <button class="copy-btn" data-copy-id="directLine">
-            <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
-          </button>
-        </div>
-
-        <!-- Fax (from PDF: Fax +852 2851 8062? wait careful: Page1 fax: 2851 8062, Page2 fax: 2851 8029, double-check:
-             Page1: Fax: + (852) 2851 8062 ; Page2: 传真: + (852) 2851 8029 . We list main fax as +852 2851 8062 (from page1) and alternate optional -->
-        <div class="contact-row">
-          <div class="row-label">
-            <span data-lang="en">FAX</span>
-            <span data-lang="zh">傳真</span>
-          </div>
-          <div class="row-value" id="faxValue">+852 2851 8062</div>
-          <button class="copy-btn" data-copy-id="faxValue">
-            <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
-          </button>
-        </div>
 
         <!-- Email: jenny.kun@Hybribio.com + also myphibio.com appears? PDF shows jenny.kun@myphibio.com on page2 
              we include both but primary Hybribio -->
@@ -491,6 +456,53 @@
           </button>
         </div>
 
+        <div class="contact-row">
+            <div class="row-label">
+                <span data-lang="en">Wechat</span>
+                <span data-lang="zh">微信</span>
+              </div>
+            <div class="row-value" id="emailPrimary">greyjar</div>
+            <button class="copy-btn" data-copy-id="emailPrimary">
+              <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
+            </button>
+          </div>        
+
+          <div class="contact-row">
+            <div class="row-label">
+              <span data-lang="en">PHONE</span>
+              <span data-lang="zh">電話</span>
+            </div>
+            <div class="row-value" id="phoneValue">+852 2851 8029</div>
+            <button class="copy-btn" data-copy-id="phoneValue">
+              <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
+            </button>
+          </div>
+  
+          <!-- direct line / executive contact (based on PDF page2: 執行董事 + 電話 +852 2851 8062) -->
+          <div class="contact-row">
+            <div class="row-label">
+              <span data-lang="en">DIRECT LINE</span>
+              <span data-lang="zh">手機</span>
+            </div>
+            <div class="row-value" id="directLine">+852 2851 8062</div>
+            <button class="copy-btn" data-copy-id="directLine">
+              <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
+            </button>
+          </div>
+  
+          <!-- Fax (from PDF: Fax +852 2851 8062? wait careful: Page1 fax: 2851 8062, Page2 fax: 2851 8029, double-check:
+               Page1: Fax: + (852) 2851 8062 ; Page2: 传真: + (852) 2851 8029 . We list main fax as +852 2851 8062 (from page1) and alternate optional -->
+          <div class="contact-row">
+            <div class="row-label">
+              <span data-lang="en">FAX</span>
+              <span data-lang="zh">傳真</span>
+            </div>
+            <div class="row-value" id="faxValue">+852 2851 8062</div>
+            <button class="copy-btn" data-copy-id="faxValue">
+              <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
+            </button>
+          </div>
+  
 
         <!-- Address: from PDF page2: 九龍九龍灣噴泉道3號企業廣場2期35樓  + English format -->
         <div class="contact-row">
@@ -536,20 +548,8 @@
       <div class="qr-grid">
         <div class="qr-card">
           <div class="qr-img" id="qrPlaceholder1">
-            <!-- stylized qr-like pattern (visual only) but with scan intention -->
-            <svg viewBox="0 0 100 100" width="100%" height="auto" style="background:white; border-radius: 12px;">
-              <rect width="100" height="100" fill="#fafcff" rx="8" ry="8" />
-              <rect x="20" y="20" width="16" height="16" fill="#0b2b3b" />
-              <rect x="40" y="20" width="16" height="16" fill="#0b2b3b" />
-              <rect x="64" y="20" width="16" height="16" fill="#0b2b3b" />
-              <rect x="20" y="40" width="16" height="16" fill="#0b2b3b" />
-              <rect x="64" y="40" width="16" height="16" fill="#0b2b3b" />
-              <rect x="20" y="64" width="16" height="16" fill="#0b2b3b" />
-              <rect x="40" y="64" width="16" height="16" fill="#0b2b3b" />
-              <rect x="64" y="64" width="16" height="16" fill="#0b2b3b" />
-              <circle cx="50" cy="50" r="6" fill="#0077b6" />
-              <path d="M30 80 L70 80" stroke="#accee7" stroke-width="2" />
-            </svg>
+            <!-- Replace stylized placeholder with QR image from file -->
+            <img src="kunjenny_qr.png" alt="QR code for https://kunjenny.github.io" style="width:100%;max-width:120px;display:block;margin:0 auto;background:white;border-radius:12px;" />
           </div>
           <div class="qr-label">
             <span data-lang="en">vCard + Contact</span>
@@ -563,7 +563,7 @@
           </div>
         </div>
 
-        <div class="qr-card">
+        <!-- <div class="qr-card">
           <div class="qr-img">
             <svg viewBox="0 0 100 100" width="100%" height="auto" style="background:white; border-radius: 12px;">
               <rect width="100" height="100" fill="#fafcff" rx="8" ry="8" />
@@ -588,7 +588,7 @@
             <a href="https://www.Hybribio.com" target="_blank" style="font-size:0.7rem;">Hybribio.com ↗</a>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="footer-note">
         <span>© Jenny Kun</span>
@@ -689,8 +689,7 @@
       const phone = "+852 2851 8029";
       const direct = "+852 2851 8062";
       const fax = "+852 2851 8062";
-      const email1 = "jenny.kun@Hybribio.com";
-      const email2 = "jenny.kun@myphibio.com";
+      const email1 = "jenny.kun@hybribio.com";
       const address_en = "35/F, Tower 2, Enterprise Square, 3 Fountain Road, Kowloon Bay, Hong Kong";
       const website = "https://www.Hybribio.com";
       const vCardData = `BEGIN:VCARD

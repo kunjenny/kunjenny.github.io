@@ -210,11 +210,22 @@
       width: 110px;
     }
 
+    /* Keeps the contact text and copy control on one horizontal line */
+    .row-value-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      padding-left: 12px;
+    }
+
     .row-value {
       flex: 1;
+      min-width: 0;
       font-size: 0.95rem;
       word-break: break-word;
-      padding: 0 12px;
+      padding: 0;
       font-family: var(--mono);
       color: #1f3b4c;
     }
@@ -356,15 +367,27 @@
         --pad: 20px;
       }
       .contact-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 12px;
       }
       .row-label {
+        flex: 1 0 100%;
         width: auto;
+        min-width: 0;
+        padding-bottom: 2px;
+      }
+      .row-value-wrap {
+        flex: 1 1 100%;
+        padding-left: 0;
+        min-width: 0;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
       }
       .copy-btn {
-        align-self: flex-end;
+        flex-shrink: 0;
+        align-self: auto;
       }
       .card-header {
         flex-direction: column;
@@ -448,23 +471,25 @@
 
         <!-- Email: jenny.kun@Hybribio.com + also myphibio.com appears? PDF shows jenny.kun@myphibio.com on page2 
              we include both but primary Hybribio -->
-        <div class="contact-row">
+        <!-- <div class="contact-row">
           <div class="row-label">EMAIL</div>
           <div class="row-value" id="emailPrimary">jenny.kun@hybribio.com</div>
           <button class="copy-btn" data-copy-id="emailPrimary">
             <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
           </button>
-        </div>
+        </div> -->
 
         <div class="contact-row">
             <div class="row-label">
                 <span data-lang="en">Wechat</span>
                 <span data-lang="zh">微信</span>
               </div>
-            <div class="row-value" id="emailPrimary">greyjar</div>
-            <button class="copy-btn" data-copy-id="emailPrimary">
-              <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
-            </button>
+            <div class="row-value-wrap">
+              <div class="row-value" id="emailPrimary">greyjar</div>
+              <button type="button" class="copy-btn" data-copy-id="emailPrimary">
+                <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
+              </button>
+            </div>
           </div>        
 
           <div class="contact-row">
@@ -472,14 +497,16 @@
               <span data-lang="en">PHONE</span>
               <span data-lang="zh">電話</span>
             </div>
-            <div class="row-value" id="phoneValue">+852 2851 8029</div>
-            <button class="copy-btn" data-copy-id="phoneValue">
-              <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
-            </button>
+            <div class="row-value-wrap">
+              <div class="row-value" id="phoneValue">+852 2851 8029</div>
+              <button type="button" class="copy-btn" data-copy-id="phoneValue">
+                <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
+              </button>
+            </div>
           </div>
   
           <!-- direct line / executive contact (based on PDF page2: 執行董事 + 電話 +852 2851 8062) -->
-          <div class="contact-row">
+          <!-- <div class="contact-row">
             <div class="row-label">
               <span data-lang="en">DIRECT LINE</span>
               <span data-lang="zh">手機</span>
@@ -488,11 +515,11 @@
             <button class="copy-btn" data-copy-id="directLine">
               <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
             </button>
-          </div>
+          </div> -->
   
           <!-- Fax (from PDF: Fax +852 2851 8062? wait careful: Page1 fax: 2851 8062, Page2 fax: 2851 8029, double-check:
                Page1: Fax: + (852) 2851 8062 ; Page2: 传真: + (852) 2851 8029 . We list main fax as +852 2851 8062 (from page1) and alternate optional -->
-          <div class="contact-row">
+          <!-- <div class="contact-row">
             <div class="row-label">
               <span data-lang="en">FAX</span>
               <span data-lang="zh">傳真</span>
@@ -501,11 +528,11 @@
             <button class="copy-btn" data-copy-id="faxValue">
               <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
             </button>
-          </div>
+          </div> -->
   
 
         <!-- Address: from PDF page2: 九龍九龍灣噴泉道3號企業廣場2期35樓  + English format -->
-        <div class="contact-row">
+        <!-- <div class="contact-row">
           <div class="row-label">
             <span data-lang="en">OFFICE</span>
             <span data-lang="zh">地址</span>
@@ -517,7 +544,7 @@
           <button class="copy-btn" data-copy-id="address">
             <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
           </button>
-        </div>
+        </div> -->
 
         <!-- Websites: Hybribio.com & myphibio.com -->
         <div class="contact-row">
@@ -525,12 +552,13 @@
             <span data-lang="en">WEB</span>
             <span data-lang="zh">網站</span>
           </div>
-          <div class="row-value website-link">
-            <a href="https://www.Hybribio.com" target="_blank" rel="noopener noreferrer">Hybribio.com</a>
-            <!-- <span style="margin:0 8px">|</span>
+          <div class="row-value-wrap">
+            <div class="row-value website-link">
+              <a href="https://www.Hybribio.com" target="_blank" rel="noopener noreferrer">Hybribio.com</a>
+              <!-- <span style="margin:0 8px">|</span>
             <a href="https://www.myphibio.com" target="_blank" rel="noopener noreferrer">myphibio.com</a> -->
+            </div>
           </div>
-          <span></span>
         </div>
       </div>
 

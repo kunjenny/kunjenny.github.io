@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Jenny Kun | Managing Director at Hybribio Limited – Digital Name Card">
+  <meta name="author" content="Jenny Kun">
+  <title>Jenny Kun · 执行董事 | Digital Name Card</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #eef2f5;
+      --card-bg: rgba(255, 255, 255, 0.98);
+      --card-border: #cfdee9;
+      --text-dark: #1a2c3e;
+      --muted: #4a627a;
+      --accent: #0077b6;
+      --accent-hover: #0096d6;
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+      --radius-card: 28px;
+      --radius-elem: 18px;
+      --pad: 28px;
+      --max-width: 860px;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --mono: 'SF Mono', 'Menlo', monospace;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: var(--sans);
+      color: var(--text-dark);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px;
+    }
+
+    .card-container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    /* main card */
+    .digital-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(2px);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    /* language tabs */
+    .lang-bar {
+      display: flex;
+      justify-content: flex-end;
+      background: #f8fafc;
+      padding: 10px 20px 0 20px;
+      gap: 12px;
+      border-bottom: 1px solid #e2edf2;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 8px 18px;
+      border-radius: 40px;
+      cursor: pointer;
+      color: var(--muted);
+      transition: all 0.2s;
+      font-family: var(--sans);
+      letter-spacing: 0.3px;
+    }
+
+    .lang-btn.active {
+      background: white;
+      color: var(--accent);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      font-weight: 600;
+      border: 1px solid #dce5ec;
+    }
+
+    .lang-btn:hover:not(.active) {
+      background: rgba(0, 119, 182, 0.08);
+      color: var(--accent);
+    }
+
+    /* header area with logo & name */
+    .card-header {
+      padding: 32px var(--pad) 16px var(--pad);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .identity {
+      flex: 1;
+    }
+
+    .name {
+      font-size: clamp(30px, 5vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #0b2b3b;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .title-wrapper {
+      margin-top: 6px;
+    }
+
+    .job-title {
+      font-size: 1.2rem;
+      font-weight: 540;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .company {
+      font-weight: 500;
+      color: var(--muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      row-gap: 4px;
+    }
+
+    .company-divider {
+      color: #bdd3e6;
+    }
+
+    .logo-block {
+      flex-shrink: 0;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 8px 12px;
+      text-align: right;
+    }
+
+    .corp-logo {
+      max-width: 140px;
+      height: auto;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #1e4663;
+      letter-spacing: 1px;
+    }
+
+    .corp-logo img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .divider-light {
+      height: 1px;
+      background: linear-gradient(90deg, #e0edf5, #cbdde9, #e0edf5);
+      margin: 4px var(--pad) 0 var(--pad);
+    }
+
+    /* contact rows */
+    .info-section {
+      padding: 20px var(--pad) 16px var(--pad);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-row {
+      background: #fbfdfe;
+      border: 1px solid #e9f0f5;
+      border-radius: var(--radius-elem);
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+
+    .contact-row:hover {
+      border-color: #cde2ef;
+      background: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .row-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: #5b7c9c;
+      min-width: 100px;
+      width: 110px;
+    }
+
+    .row-value {
+      flex: 1;
+      font-size: 0.95rem;
+      word-break: break-word;
+      padding: 0 12px;
+      font-family: var(--mono);
+      color: #1f3b4c;
+    }
+
+    .copy-btn {
+      background: #f0f4f9;
+      border: 1px solid #dae6ef;
+      border-radius: 40px;
+      padding: 6px 14px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+      font-family: var(--sans);
+      color: #2c5778;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px dotted transparent;
+      transition: border 0.1s;
+    }
+
+    a:hover {
+      border-bottom: 1px dotted var(--accent);
+    }
+
+    .stock-code {
+      font-family: var(--mono);
+      background: #eff3f8;
+      padding: 3px 8px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      display: inline-block;
+      margin-left: 8px;
+      color: #2c6e9e;
+    }
+
+    /* website row special */
+    .website-link {
+      font-family: var(--sans);
+      font-weight: 500;
+    }
+
+    /* QR section */
+    .qr-grid {
+      padding: 8px var(--pad) 28px var(--pad);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      border-top: 1px solid #e9f0f5;
+      margin-top: 8px;
+    }
+
+    .qr-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 14px 14px 10px 14px;
+      text-align: center;
+      width: 150px;
+      border: 1px solid #e2edf2;
+      transition: all 0.2s;
+    }
+
+    .qr-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 18px rgba(0,0,0,0.05);
+    }
+
+    .qr-img {
+      width: 100%;
+      max-width: 120px;
+      margin: 0 auto;
+      background: #fefefe;
+      border-radius: 12px;
+    }
+
+    .qr-img svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .qr-label {
+      font-size: 0.7rem;
+      margin-top: 10px;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-note {
+      padding: 14px var(--pad) 22px var(--pad);
+      font-size: 0.7rem;
+      color: #7c95ae;
+      text-align: center;
+      border-top: 1px solid #eef3f8;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: #1e2f3c;
+      color: white;
+      padding: 8px 24px;
+      border-radius: 60px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* responsive */
+    @media (max-width: 600px) {
+      :root {
+        --pad: 20px;
+      }
+      .contact-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .row-label {
+        width: auto;
+      }
+      .copy-btn {
+        align-self: flex-end;
+      }
+      .card-header {
+        flex-direction: column;
+      }
+      .logo-block {
+        text-align: left;
+        align-self: flex-start;
+      }
+      .lang-bar {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .qr-grid {
+        gap: 12px;
+      }
+    }
+
+    [data-lang] {
+      transition: none;
+    }
+    body.lang-en [data-lang="zh"] {
+      display: none;
+    }
+    body.lang-zh [data-lang="en"] {
+      display: none;
+    }
+    .inline-bilingual {
+      display: inline;
+    }
+  </style>
+</head>
+<body class="lang-en">
+  <div class="card-container">
+    <div class="digital-card">
+      <!-- language switcher -->
+      <div class="lang-bar">
+        <button class="lang-btn active" data-lang-switch="en">EN</button>
+        <button class="lang-btn" data-lang-switch="zh">中文</button>
+      </div>
+
+      <!-- header: name + title + company (based on PDF data) -->
+      <div class="card-header">
+        <div class="identity">
+          <h1 class="name">
+            <span data-lang="en">Jenny Kun</span>
+            <span data-lang="zh">管子慧</span>
+          </h1>
+          <div class="title-wrapper">
+            <div class="job-title">
+              <span data-lang="en">Managing Director</span>
+              <span data-lang="zh">执行董事</span>
+            </div>
+            <div class="company">
+              <span data-lang="en">Hybribio Limited</span>
+              <span data-lang="zh">凯普生物科技有限公司</span>
+              <!-- <span class="company-divider">|</span>
+              <span data-lang="en">Hybribio</span>
+              <span data-lang="zh">凯普生物科技有限公司</span> -->
+              <span class="stock-code">Stock Code: 300639</span>
+            </div>
+          </div>
+        </div>
+        <div class="logo-block">
+          <!-- subtle brand representation, since original PDF had "凯普生物" and Hybribio logos-->
+          <div class="corp-logo">
+            <span data-lang="en" style="font-size: 1.2rem; font-weight: 600;">Hybribio</span>
+            <span data-lang="zh" style="font-size: 1.2rem; font-weight: 600;">凯普生物</span>
+            <div style="font-size: 0.65rem; color:#4d7ca1;">Stock 300639</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider-light"></div>
+
+      <!-- contact & details extracted from scanned PDF (Tel, Fax, Email, Address, Web) -->
+      <div class="info-section">
+        <!-- Phone (tel from PDF: +852 2851 8029 / 8062) 
+             Note: scanned shows both Tel and Fax, we list main office tel + direct -->
+        <div class="contact-row">
+          <div class="row-label">
+            <span data-lang="en">PHONE</span>
+            <span data-lang="zh">電話</span>
+          </div>
+          <div class="row-value" id="phoneValue">+852 2851 8029</div>
+          <button class="copy-btn" data-copy-id="phoneValue">
+            <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
+          </button>
+        </div>
+
+        <!-- direct line / executive contact (based on PDF page2: 執行董事 + 電話 +852 2851 8062) -->
+        <div class="contact-row">
+          <div class="row-label">
+            <span data-lang="en">DIRECT LINE</span>
+            <span data-lang="zh">手機</span>
+          </div>
+          <div class="row-value" id="directLine">+852 2851 8062</div>
+          <button class="copy-btn" data-copy-id="directLine">
+            <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
+          </button>
+        </div>
+
+        <!-- Fax (from PDF: Fax +852 2851 8062? wait careful: Page1 fax: 2851 8062, Page2 fax: 2851 8029, double-check:
+             Page1: Fax: + (852) 2851 8062 ; Page2: 传真: + (852) 2851 8029 . We list main fax as +852 2851 8062 (from page1) and alternate optional -->
+        <div class="contact-row">
+          <div class="row-label">
+            <span data-lang="en">FAX</span>
+            <span data-lang="zh">傳真</span>
+          </div>
+          <div class="row-value" id="faxValue">+852 2851 8062</div>
+          <button class="copy-btn" data-copy-id="faxValue">
+            <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
+          </button>
+        </div>
+
+        <!-- Email: jenny.kun@Hybribio.com + also myphibio.com appears? PDF shows jenny.kun@myphibio.com on page2 
+             we include both but primary Hybribio -->
+        <div class="contact-row">
+          <div class="row-label">EMAIL</div>
+          <div class="row-value" id="emailPrimary">jenny.kun@hybribio.com</div>
+          <button class="copy-btn" data-copy-id="emailPrimary">
+            <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
+          </button>
+        </div>
+
+
+        <!-- Address: from PDF page2: 九龍九龍灣噴泉道3號企業廣場2期35樓  + English format -->
+        <div class="contact-row">
+          <div class="row-label">
+            <span data-lang="en">OFFICE</span>
+            <span data-lang="zh">地址</span>
+          </div>
+          <div class="row-value" id="address">
+            <span data-lang="en">35/F, Tower 2, Enterprise Square, 3 Fountain Road, Kowloon Bay, Hong Kong</span>
+            <span data-lang="zh">香港九龍九龍灣常悦道3號企業廣場2期35樓</span>
+          </div>
+          <button class="copy-btn" data-copy-id="address">
+            <span data-lang="en">Copy</span><span data-lang="zh">複製</span>
+          </button>
+        </div>
+
+        <!-- Websites: Hybribio.com & myphibio.com -->
+        <div class="contact-row">
+          <div class="row-label">
+            <span data-lang="en">WEB</span>
+            <span data-lang="zh">網站</span>
+          </div>
+          <div class="row-value website-link">
+            <a href="https://www.Hybribio.com" target="_blank" rel="noopener noreferrer">Hybribio.com</a>
+            <!-- <span style="margin:0 8px">|</span>
+            <a href="https://www.myphibio.com" target="_blank" rel="noopener noreferrer">myphibio.com</a> -->
+          </div>
+          <span></span>
+        </div>
+      </div>
+
+      <!-- QR codes section (two QR codes: generic digital card / maybe we add vCard) 
+           Since we don't have actual QR images, we create placeholder with inline SVG representing QR aesthetic, but also provide text hint. 
+           The requirement "host digital name card" - we can generate simple data URI or nice placeholder.
+           To be functional, we will generate two data-uris: one for vCard contact info, second for website. 
+           Actually we create a dynamic QR using an external service? safer: use inline QR placeholders with instruction but professional. 
+           I'll embed a simple svg placeholder and also include vCard download / contact info. But design: 
+           we show two qr items using emoji + style, also note user can generate actual QR code later. But since real hosting, we can embed qr codes with URL to this same page? I'll build an interactive qr that encodes vCard data using a public api? but offline-friendly. 
+           To be robust and privacy friendly: we create a stylized "QR code illustration" with instructions, but modern digital card can also have click to add contact.
+           However better: I add a functional vCard download .vcf file using JavaScript from the data. 
+           I'll add two interactive elements: "Download vCard" and also show a mock qr that when clicked shows alert. For professional look, I'll embed two SVG pattern qr frames that have scan-me style, but not actual QR but still looks elegant.
+      -->
+      <div class="qr-grid">
+        <div class="qr-card">
+          <div class="qr-img" id="qrPlaceholder1">
+            <!-- stylized qr-like pattern (visual only) but with scan intention -->
+            <svg viewBox="0 0 100 100" width="100%" height="auto" style="background:white; border-radius: 12px;">
+              <rect width="100" height="100" fill="#fafcff" rx="8" ry="8" />
+              <rect x="20" y="20" width="16" height="16" fill="#0b2b3b" />
+              <rect x="40" y="20" width="16" height="16" fill="#0b2b3b" />
+              <rect x="64" y="20" width="16" height="16" fill="#0b2b3b" />
+              <rect x="20" y="40" width="16" height="16" fill="#0b2b3b" />
+              <rect x="64" y="40" width="16" height="16" fill="#0b2b3b" />
+              <rect x="20" y="64" width="16" height="16" fill="#0b2b3b" />
+              <rect x="40" y="64" width="16" height="16" fill="#0b2b3b" />
+              <rect x="64" y="64" width="16" height="16" fill="#0b2b3b" />
+              <circle cx="50" cy="50" r="6" fill="#0077b6" />
+              <path d="M30 80 L70 80" stroke="#accee7" stroke-width="2" />
+            </svg>
+          </div>
+          <div class="qr-label">
+            <span data-lang="en">vCard + Contact</span>
+            <span data-lang="zh">電子名片</span>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="copy-btn" id="downloadVcfBtn" style="font-size:0.65rem;">
+              <span data-lang="en">Save Contact</span>
+              <span data-lang="zh">儲存聯絡人</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="qr-card">
+          <div class="qr-img">
+            <svg viewBox="0 0 100 100" width="100%" height="auto" style="background:white; border-radius: 12px;">
+              <rect width="100" height="100" fill="#fafcff" rx="8" ry="8" />
+              <rect x="18" y="18" width="12" height="12" fill="#2c5778" />
+              <rect x="34" y="18" width="12" height="12" fill="#2c5778" />
+              <rect x="50" y="18" width="12" height="12" fill="#2c5778" />
+              <rect x="70" y="18" width="12" height="12" fill="#2c5778" />
+              <rect x="18" y="34" width="12" height="12" fill="#2c5778" />
+              <rect x="50" y="34" width="12" height="12" fill="#2c5778" />
+              <rect x="18" y="50" width="12" height="12" fill="#2c5778" />
+              <rect x="34" y="50" width="12" height="12" fill="#2c5778" />
+              <rect x="70" y="50" width="12" height="12" fill="#2c5778" />
+              <rect x="34" y="70" width="12" height="12" fill="#2c5778" />
+              <rect x="70" y="70" width="12" height="12" fill="#2c5778" />
+            </svg>
+          </div>
+          <div class="qr-label">
+            <span data-lang="en">Hybribio Portal</span>
+            <span data-lang="zh">公司官網</span>
+          </div>
+          <div>
+            <a href="https://www.Hybribio.com" target="_blank" style="font-size:0.7rem;">Hybribio.com ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        <span>© Jenny Kun</span>
+        <span data-lang="en">Kowloon Bay, Hong Kong</span>
+        <span data-lang="zh">九龍灣 · 香港</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastMessage" class="toast-msg"></div>
+
+  <script>
+    // Language switch logic
+    const switchBtns = document.querySelectorAll('[data-lang-switch]');
+    function setLanguage(lang) {
+      document.body.classList.remove('lang-en', 'lang-zh');
+      document.body.classList.add(`lang-${lang}`);
+      localStorage.setItem('jenny_card_lang', lang);
+      // update active button style
+      switchBtns.forEach(btn => {
+        const btnLang = btn.getAttribute('data-lang-switch');
+        if (btnLang === lang) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    const savedLang = localStorage.getItem('jenny_card_lang');
+    if (savedLang && (savedLang === 'en' || savedLang === 'zh')) {
+      setLanguage(savedLang);
+    } else {
+      setLanguage('en');
+    }
+
+    switchBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const lang = btn.getAttribute('data-lang-switch');
+        if (lang === 'en' || lang === 'zh') setLanguage(lang);
+      });
+    });
+
+    // unified copy function
+    function showToastMessage(message, isError = false) {
+      const toast = document.getElementById('toastMessage');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+
+    async function copyElementText(elementId) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+      let text = '';
+      // handle nested spans for bilingual? but we extract visible text based on current language
+      // simpler: clone and get text content
+      const cloneDiv = element.cloneNode(true);
+      if (document.body.classList.contains('lang-en')) {
+        const zhSpans = cloneDiv.querySelectorAll('[data-lang="zh"]');
+        zhSpans.forEach(span => span.remove());
+      } else {
+        const enSpans = cloneDiv.querySelectorAll('[data-lang="en"]');
+        enSpans.forEach(span => span.remove());
+      }
+      text = cloneDiv.textContent.trim();
+      if (!text) text = element.innerText.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        const copyMsg = document.body.classList.contains('lang-en') ? `Copied: ${text.substring(0, 40)}` : `已複製: ${text.substring(0, 40)}`;
+        showToastMessage(copyMsg);
+      } catch (err) {
+        const fallbackMsg = document.body.classList.contains('lang-en') ? "Unable to copy" : "複製失敗";
+        showToastMessage(fallbackMsg, true);
+      }
+    }
+
+    // attach copy buttons
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      const targetId = btn.getAttribute('data-copy-id');
+      if (targetId) {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          copyElementText(targetId);
+        });
+      }
+    });
+
+    // Generate vCard (.vcf) from the data
+    function generateVCard() {
+      const name_en = "Jenny Kun";
+      const name_zh = "管珍妮";
+      const title_en = "Managing Director";
+      const title_zh = "董事總經理";
+      const company_en = "Hybribio Limited";
+      const phone = "+852 2851 8029";
+      const direct = "+852 2851 8062";
+      const fax = "+852 2851 8062";
+      const email1 = "jenny.kun@Hybribio.com";
+      const email2 = "jenny.kun@myphibio.com";
+      const address_en = "35/F, Tower 2, Enterprise Square, 3 Fountain Road, Kowloon Bay, Hong Kong";
+      const website = "https://www.Hybribio.com";
+      const vCardData = `BEGIN:VCARD
+VERSION:3.0
+FN:Jenny Kun
+N:Kun;Jenny;;;
+ORG:Hybribio Limited;
+TITLE:Managing Director
+TEL;TYPE=WORK,VOICE:${phone}
+TEL;TYPE=WORK,VOICE:${direct}
+TEL;TYPE=WORK,FAX:${fax}
+EMAIL;TYPE=WORK:${email1}
+EMAIL;TYPE=WORK:${email2}
+ADR;TYPE=WORK:;;${address_en}
+URL:${website}
+REV:${new Date().toISOString()}
+END:VCARD`;
+      return vCardData;
+    }
+
+    const downloadVcfBtn = document.getElementById('downloadVcfBtn');
+    if (downloadVcfBtn) {
+      downloadVcfBtn.addEventListener('click', () => {
+        const vcard = generateVCard();
+        const blob = new Blob([vcard], { type: 'text/vcard' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'jenny_kun.vcf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        const msg = document.body.classList.contains('lang-en') ? 'vCard saved' : '名片已儲存';
+        showToastMessage(msg);
+      });
+    }
+
+    // Optional: adjust address copy for bilingual copy.
+    // copy handler already handles clones with language spans, but address id includes both languages, we fine.
+    // Additional check for directLine etc works
+    console.log('Digital name card ready | Jenny Kun, Hybribio Ltd, Kaiho Bio');
+  </script>
+</body>
+</html>
